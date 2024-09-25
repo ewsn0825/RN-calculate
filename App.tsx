@@ -1,118 +1,91 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
-
 import React from 'react';
-import type {PropsWithChildren} from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native';
+import {Text, TouchableOpacity, View} from 'react-native';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import Entypo from 'react-native-vector-icons/Entypo';
+import FontAwesome6 from 'react-native-vector-icons/FontAwesome6';
+import styled from 'styled-components/native';
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+// 변수명은 대문자로 시작해야함
+const NumberButton = styled.TouchableOpacity`
+  background-color: #b6b6b6;
+  width: 75px;
+  height: 75px;
+  border-radius: 100px;
+  margin: 20px;
+  align-items: center;
+  justify-content: center;
+`;
 
-type SectionProps = PropsWithChildren<{
-  title: string;
-}>;
+const OperatorButton = styled(NumberButton)`
+  background-color: #0084ff;
+`;
 
-function Section({children, title}: SectionProps): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
+const NumberText = styled.Text`
+  font-size: 24px;
+  color: white;
+`;
+
+const ResultText = styled.Text`
+  font-size: 40px;
+  margin-top: 20px;
+  margin-bottom: 30%;
+  margin-right: 5%;
+  /* text-align: right; */
+`;
+
+const App = () => {
   return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
+    <View style={{backgroundColor: '#181818', flex: 1}}>
+      {/* 코드 이해 필요 */}
+      <ResultText style={{color: 'white'}}>0</ResultText>
+      <View style={{flexDirection: 'row', flexWrap: 'wrap', width: 400}}>
+        {[...Array(10).keys()].reverse().map(num => (
+          <NumberButton key={num}>
+            <NumberText>{num}</NumberText>
+          </NumberButton>
+        ))}
+      </View>
+      <View
+        style={{
+          flexDirection: 'row',
+          flexWrap: 'wrap',
+          marginLeft: 115,
+          marginTop: -115,
+        }}>
+        <NumberButton>
+          <MaterialIcons name="restart-alt" size={32} color="white" />
+        </NumberButton>
+        <NumberButton>
+          <Entypo name="dot-single" size={32} color="white" />
+        </NumberButton>
+      </View>
+
+      <View
+        style={{
+          flexDirection: 'row',
+          flexWrap: 'wrap',
+          marginLeft: 340,
+          marginTop: -575,
+        }}>
+        <OperatorButton>
+          <MaterialCommunityIcons name="equal" size={32} color="white" />
+        </OperatorButton>
+        <OperatorButton>
+          <Entypo name="plus" size={32} color="white" />
+        </OperatorButton>
+        <OperatorButton>
+          <Entypo name="minus" size={32} color="white" />
+        </OperatorButton>
+        <OperatorButton>
+          <Entypo name="cross" size={32} color="white" />
+        </OperatorButton>
+        <OperatorButton>
+          <FontAwesome6 name="divide" size={32} color="white" />
+        </OperatorButton>
+      </View>
     </View>
   );
-}
-
-function App(): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
-
-  return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
-      />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.tsx</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
-        </View>
-      </ScrollView>
-    </SafeAreaView>
-  );
-}
-
-const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-});
+};
 
 export default App;
